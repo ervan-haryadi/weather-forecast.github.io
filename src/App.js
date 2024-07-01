@@ -34,21 +34,28 @@ function App() {
     e.preventDefault()
     let lat = document.getElementById('input-lat').value;
     let lng = document.getElementById('input-lng').value;
+    if(!lat || ! lng) {
+      alert("Please enter the correct location");
+      return;
+    }
     requestAPI(lat, lng);
     // read from input (latitude and longitude)
     // send request to API server
     // print data for user (other function)
   }
 
-  function requestAPI(lat, lng) {
+  async function requestAPI(lat, lng) {
     console.log("latitude:", lat);
     console.log("longitude:", lng);
-  }
-
-  function printWeather(lat, long) {
-    // create cards from weather forecast
-    // delete all information from weather cards
-    // print all information
+    console.log(weather)
+    let url = `https://www.7timer.info/bin/api.pl?lon=${lng}&lat=${lat}&product=civil&output=json`
+    await fetch(url).then(
+      (response) => response.json()
+    ).then(
+      (data) => setWeather([data.dataseries])
+    ).catch(
+      (err) => console.log(err)
+    )
   }
 
   return (
@@ -74,6 +81,10 @@ function App() {
         <input type='text' id='input-lng' name='input-lng' />
         <button type='submit'>Search for Forecast</button>
       </form>
+
+      <div>
+        {/* {weather} */}
+      </div>
     </div>
   )
 
