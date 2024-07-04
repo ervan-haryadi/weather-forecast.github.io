@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [ weathers, setWeathers ] = useState([]);
+  const [weathers, setWeathers] = useState([]);
 
   function getCityCoordinate(e) {
     e.preventDefault();
@@ -20,22 +20,22 @@ function App() {
         lat = 14.5995; lng = 120.9842; break;
       case 'HAN':
         lat = 21.0278; lng = 105.8342; break;
-        case 'BSB':
+      case 'BSB':
         lat = 4.8923; lng = 114.9419; break;
-        case 'PNP':
+      case 'PNP':
         lat = 11.5564; lng = 104.9282; break;
-        case 'DIL':
+      case 'DIL':
         lat = -8.5563; lng = 125.5798; break;
-        case 'VT':
+      case 'VT':
         lat = 17.9757; lng = 102.6331; break;
-        case 'NPD':
+      case 'NPD':
         lat = 19.7633; lng = 96.0785; break;
-        case 'BKK':
+      case 'BKK':
         lat = 13.7563; lng = 100.5018; break;
       default:
         lat = 0; lng = 0;
 
-    requestAPI(lat, lng);
+        requestAPI(lat, lng);
     }
 
     requestAPI(lat, lng);
@@ -82,8 +82,10 @@ function App() {
 
   return (
     <div id='weather-forecast'>
-      <h1 id='title-main'>SEAcast</h1>
-      <h2 id='title-sub'>South East Asia Weather Forecast</h2>
+      <div className='weather-title'>
+        <h1 id='title-main'>SEAcast</h1>
+        <h2 id='title-sub'>South East Asia Weather Forecast</h2>
+      </div>
 
       <form onSubmit={getCityCoordinate} id='city-form'>
         <select name='cities' id='cities'>
@@ -110,10 +112,10 @@ function App() {
         <button type='submit'>Search for Forecast</button>
       </form>
 
-      <div className='container mt-5'>
-        {weathers.map((weather) => (
-          <div key={weather.timepoint} className="col-md-4 mb-4">
-            <div className="card">
+      <div className='container'>
+        <div className='row ms-2'>
+          {weathers.map((weather) => (
+            <div key={weather.timepoint} className="card">
               <div className='card-body'>
                 <h5 className='card-title'>
                   {weather.weather}
@@ -123,8 +125,8 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
